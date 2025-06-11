@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form validation system</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="jquery.js"></script>
+    <script src="script.js"></script>
+    
+</head>
+<body>
+    <h1>FORM VALIDATION:</h1>
+    <div id="errors"></div>
+    <div id="sucess"></div>
+    <div class="wrapper">
+        <div class="formelement">
+             <label for="Email">Email:</label>
+            <input type="text" id="Email" name="Email">
+        </div>
+
+         <div class="formelement">
+             <label for="phoneno">Phone-Number:</label>
+            <input type="number" id="phoneno" name="phoneno">
+        </div>
+        <div class="formelement">
+             <label for="password">Password:</label>
+            <input type="password" id="password" name="password">
+        </div>
+        <div class="formelement">
+             <label for="confirmpassword">Conform-Password:</label>
+            <input type="password" id="confirmpassword" name="confirmpassword">
+        </div>
+        <input id="submitbutton" type="submit">
+    </div>
+       <script>
+                var errormessage="";
+        var missingfield="";
+
+// email fumction
+        function isEmail(email) {
+        var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        return regex.test(email);
+        }
+
+// checking missing fields
+       $("#submitbutton").click(function(){
+       if ( $("#Email").val() == ""){
+           missingfield +="<p>Email not filled</p>";
+       }
+       if ( $("#phoneno").val() == ""){
+           missingfield +="<p>phone number not filled</p>";
+       }
+        if ( $("#password").val() == ""){
+            missingfield +="<p>password number not filled</p>";
+       }
+        
+// validation fields
+       if(isEmail($("#Email").val())  == false){
+        errormessage +="<p>Email id is not valid</p>";
+       }
+        if (isNaN($("#phoneno").val()) || $("#phoneno").val().length < 10) {
+         errormessage += "<p>Phone number is not valid</p>";
+       }
+
+      if($("#password").val() != $("#confirmpassword").val()) {
+        errormessage += "<p>password does not match</p>"
+      }
+//   display result
+      if(errormessage ==""){
+        $("#sucess").html("you are registerd")
+      }else{
+        $("#errors").html(errormessage + missingfield);
+      }
+       });
+       </script>
+
+</body>
+</html>
